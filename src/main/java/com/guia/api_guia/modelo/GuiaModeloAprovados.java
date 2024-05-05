@@ -2,20 +2,22 @@ package com.guia.api_guia.modelo;
 
 import javax.annotation.processing.Generated;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.NotFound;
+import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Lob;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings({ "deprecation", "unused" })
+@SuppressWarnings({ "unused" })
 @Entity
 @Table(name= "aprovados")
 @Getter
@@ -23,12 +25,13 @@ import lombok.Setter;
 
 public class GuiaModeloAprovados {
 
+    @SuppressWarnings("null")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
     @NotFound
-    @NotNull
+    @NonNull
     @JsonIgnore
 
     private Long id;

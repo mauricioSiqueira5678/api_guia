@@ -2,21 +2,22 @@ package com.guia.api_guia.modelo;
 
 import javax.annotation.processing.Generated;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.NotFound;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
-@SuppressWarnings({ "deprecation", "unused" })
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Lob;
+
+@SuppressWarnings({ "unused" })
 @Entity
 @Table(name= "pendentes")
 @Getter
@@ -29,7 +30,7 @@ public class GuiaModelo {
 
 
     @NotFound
-    @NotNull
+    @NonNull
     @JsonIgnore
 
     private Long id;
