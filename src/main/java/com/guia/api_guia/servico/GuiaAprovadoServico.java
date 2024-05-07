@@ -16,5 +16,10 @@ public class GuiaAprovadoServico {
     public GuiaModeloAprovados salvarAprovado(GuiaModeloAprovados guiaAprovado) {
         return guiaAprovadoRepo.save(guiaAprovado);
     }
+
+    //Metodo para listar todos os pendentes
+    public Iterable<GuiaModeloAprovados> listarTodos(){
+        return guiaAprovadoRepo.findAll();
+    }
     
 }

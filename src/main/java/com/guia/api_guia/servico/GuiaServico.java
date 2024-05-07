@@ -2,12 +2,16 @@ package com.guia.api_guia.servico;
 
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.guia.api_guia.modelo.GuiaModelo;
@@ -66,34 +70,37 @@ public class GuiaServico {
         return new ResponseEntity<RespostaModelo> (resposta, HttpStatus.OK);
     }
 
-    // Método para aprovar cadastro
-    public ResponseEntity<RespostaModelo> aprovarCadastro(long id) {
-        Optional<GuiaModelo> optionalGuia = guiaRepo.findById(id);
-        if (optionalGuia.isPresent()) {
-            GuiaModelo guiaPendente = optionalGuia.get();
+   
+    // Método para aprovar cadastro pelo nome
+    public ResponseEntity<RespostaModelo> aprovarCadastroPorNome(@RequestBody Map<String, String> payload) {
+        String nome = payload.get("nome");
+        List<GuiaModelo> guias = guiaRepo.findByNome(nome);
+        if (!guias.isEmpty()) {
+            GuiaModelo guiaPendente = guias.get(0); // assumindo que o primeiro resultado é o desejado
 
             // Criar uma instância de GuiaModeloAprovados com os mesmos dados
             GuiaModeloAprovados guiaAprovado = new GuiaModeloAprovados();
             guiaAprovado.setNome(guiaPendente.getNome());
-            guiaAprovado.setTel(guiaPendente.getTel());
-            guiaAprovado.setFace(guiaPendente.getFace());
-            guiaAprovado.setInsta(guiaPendente.getInsta());
-            guiaAprovado.setDescricao(guiaPendente.getDescricao());
-
+                guiaAprovado.setTel(guiaPendente.getTel());
+                guiaAprovado.setFace(guiaPendente.getFace());
+                guiaAprovado.setInsta(guiaPendente.getInsta());
+                guiaAprovado.setCategoria(guiaPendente.getCategoria());
+                guiaAprovado.setDescricao(guiaPendente.getDescricao());
+                guiaAprovado.setImagem(guiaPendente.getImagem());
+            
             // Salvar na tabela de aprovados
             guiaAprovadoServico.salvarAprovado(guiaAprovado);
 
             // Remover o cadastro da tabela de pendentes
-            guiaRepo.deleteById(id);
+            guiaRepo.deleteById(guiaPendente.getId());
 
             resposta.setMensagem("Cadastro aprovado e movido para a lista de aprovados");
             return new ResponseEntity<>(resposta, HttpStatus.OK);
         } else {
-            resposta.setMensagem("Cadastro não encontrado");
+            resposta.setMensagem("Cadastro não encontrado pelo nome");
             return new ResponseEntity<>(resposta, HttpStatus.NOT_FOUND);
-
         }
     }
-    
-    
+
+ 
 }

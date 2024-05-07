@@ -1,6 +1,7 @@
 package com.guia.api_guia.controle;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import com.guia.api_guia.modelo.RespostaModelo;
 import com.guia.api_guia.servico.GuiaServico;
 
 @RestController
+//@RequestMapping("/api")
 @CrossOrigin(origins = "*")
 
 public class GuiaControle {
@@ -75,9 +77,9 @@ public class GuiaControle {
 
     }
 
-    @PostMapping("/aprovarCadastro/{id}")
-    public ResponseEntity<RespostaModelo> aprovarCadastro(@PathVariable long id) {
-        return servico.aprovarCadastro(id);
+    @PostMapping("/aprovarCadastroPorNome")
+    public ResponseEntity<RespostaModelo> aprovarCadastroPorNome(@RequestBody Map<String, String> payload) {
+        return servico.aprovarCadastroPorNome(payload);
     }
 
 }

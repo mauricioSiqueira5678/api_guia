@@ -39,6 +39,11 @@ public class GuiaModeloAprovados {
     private String tel;
     private String face;
     private String insta;
+    private String categoria;
     private String descricao;
+   
+    @Lob
+    private byte[] imagem; // Campo para armazenar a imagem
+
     
 }

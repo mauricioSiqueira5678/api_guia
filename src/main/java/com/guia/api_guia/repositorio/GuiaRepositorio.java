@@ -1,11 +1,15 @@
 package com.guia.api_guia.repositorio;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.guia.api_guia.modelo.GuiaModelo;
 
 @Repository
-public interface GuiaRepositorio extends CrudRepository<GuiaModelo, Long>{
-    
+
+
+public interface GuiaRepositorio extends JpaRepository<GuiaModelo, Long> {
+    List<GuiaModelo> findByNome(String nome);
 }
