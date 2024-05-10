@@ -1,5 +1,7 @@
 package com.guia.api_guia.servico;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,12 @@ public class GuiaAprovadoServico {
     public Iterable<GuiaModeloAprovados> listarTodos(){
         return guiaAprovadoRepo.findAll();
     }
+
+    public List<GuiaModeloAprovados> listarPorCategoria(String categoria){
+        return guiaAprovadoRepo.findByCategoria(categoria);
+    }
     
+    public List<GuiaModeloAprovados> listarPorNome(String nome){
+        return guiaAprovadoRepo.findByNomeContainingIgnoreCase(nome);
+    }
 }

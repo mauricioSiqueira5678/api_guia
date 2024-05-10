@@ -102,5 +102,9 @@ public class GuiaServico {
         }
     }
 
+    public List<GuiaModelo> listarPorNome(String nome){
+        return guiaRepo.findByNomeContainingIgnoreCase(nome);
+    }
+
  
 }

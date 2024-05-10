@@ -12,4 +12,6 @@ import com.guia.api_guia.modelo.GuiaModelo;
 
 public interface GuiaRepositorio extends JpaRepository<GuiaModelo, Long> {
     List<GuiaModelo> findByNome(String nome);
+
+    List<GuiaModelo> findByNomeContainingIgnoreCase(String nome);
 }

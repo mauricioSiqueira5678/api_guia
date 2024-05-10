@@ -1,6 +1,7 @@
 package com.guia.api_guia.controle;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,12 @@ public class GuiaControle {
     @PostMapping("/aprovarCadastroPorNome")
     public ResponseEntity<RespostaModelo> aprovarCadastroPorNome(@RequestBody Map<String, String> payload) {
         return servico.aprovarCadastroPorNome(payload);
+    }
+
+    @GetMapping("/pesquisarPendentes")
+        public ResponseEntity<List<GuiaModelo>> pesquisarPendentes(@RequestParam String nome) {
+        List<GuiaModelo> resultados = servico.listarPorNome(nome);
+        return ResponseEntity.ok(resultados);
     }
 
 }
